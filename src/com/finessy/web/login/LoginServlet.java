@@ -2,9 +2,10 @@ package com.finessy.web.login;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,17 +22,6 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-//		Cookie[] cookies = request.getCookies();
-//		boolean cookieExist = false;
-//		for(Cookie cookie : cookies) {
-//			
-//		}
-//		
-//		if(cookieExist) {
-//			return;
-//		}
-		
 		String email = request.getParameter("userid");
 		String pass = request.getParameter("password");
 		
@@ -40,20 +30,19 @@ public class LoginServlet extends HttpServlet {
 			boolean exist = AuthenticateUser.exist(email, pass);
 			if(exist) {
 				HttpSession session = request.getSession(true);
-				session.setAttribute("email", email);
-//				request.getRequestDispatcher("welcome.html").forward(request, response);
-				response.sendRedirect("dashboard.html");
+				session.setAttribute("Email", email);
+				response.sendRedirect("welcome.html");
+				return;
 			}
 			else {
-				response.sendRedirect("dashboard");
+				response.sendRedirect("login.html");
 			}
 			
 		}
 		else {
-			response.sendRedirect("dashboard.html");
+			response.sendRedirect("welcome.html");
 		}
-
-				
+		
 	}
 
 }

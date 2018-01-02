@@ -5,8 +5,7 @@ import com.finessy.web.user.UserDAO;
 public class AuthenticateUser {
 
 	public static boolean exist(String email, String pass) {
-		String hashPass = PasswordHash.passHash(pass);
-		return new UserDAO().doExist(email, hashPass);
+		return new UserDAO().doExist(email, pass);
 	}
 
 	public static boolean valid(String email, String pass) {
