@@ -1,4 +1,4 @@
-package com.finessy.web.forum.notification.question;
+package com.finessy.web.notification.question;
 
 public interface NotificationSQL {
 

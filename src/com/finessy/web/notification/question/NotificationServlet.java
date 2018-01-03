@@ -1,4 +1,4 @@
-package com.finessy.web.forum.notification.question;
+package com.finessy.web.notification.question;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

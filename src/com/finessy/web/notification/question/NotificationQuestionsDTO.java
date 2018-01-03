@@ -1,6 +1,6 @@
-package com.finessy.web.forum.notification.question;
+package com.finessy.web.notification.question;
 
-import com.finessy.web.forum.notification.Notification;
+import com.finessy.web.notification.Notification;
 
 public class NotificationQuestionsDTO implements Notification{
 

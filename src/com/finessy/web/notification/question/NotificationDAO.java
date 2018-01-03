@@ -1,4 +1,4 @@
-package com.finessy.web.forum.notification.question;
+package com.finessy.web.notification.question;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
