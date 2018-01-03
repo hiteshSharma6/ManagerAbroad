@@ -1,4 +1,4 @@
-package com.finessy.web.notification.question;
+package com.finessy.web.notifications;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.finessy.web.commonDAO.CommonDAO;
 
@@ -25,6 +24,7 @@ public class NotificationDAO {
 			ps = con.prepareStatement(NotificationSQL.CALC_GROUPS);
 			ps.setInt(1, studentId);
 			rs = ps.executeQuery();
+			
 			
 			if (!rs.isBeforeFirst() ) { 
 				groupArrayList.add(0);
@@ -50,63 +50,98 @@ public class NotificationDAO {
 		}
 	}
 	
-//	public HashMap<Integer,ArrayList<String>> eachGroupQuestion(int studentId, String date1) throws ClassNotFoundException, SQLException{
-//		
-//		ArrayList<Integer> groupArrayList = new ArrayList<Integer>();
-//		groupArrayList = calcGroups(studentId);
-//		
-//		Map<Integer,ArrayList<String>> questionMap = new HashMap<Integer,ArrayList<String>>();
-//		con = CommonDAO.getConnection();
-//		ps = con.prepareStatement("");
-//		
-//		try {
-//			for(Integer i:groupArrayList) {
-//				
-//				ps.setInt(1, i);
-//				ps.setString(2, date1);
-//			}
-//			
-//			
-//			
-//		}finally {
-//			
-//		}
-//	}
+	public HashMap<Integer,ArrayList<String>> eachGroupQuestion(int studentId, String date1) throws ClassNotFoundException, SQLException{
+		
+		ArrayList<Integer> groupArrayList = new ArrayList<Integer>();
+		groupArrayList = calcGroups(studentId);
+		
+		HashMap<Integer,ArrayList<String>> questionMap = new HashMap<Integer,ArrayList<String>>();
+		
+		if(groupArrayList.lastIndexOf(0) == 0) {
+			System.out.println("no elements");
+			ArrayList<String> questions = new ArrayList<String>();
+			questions.add("null");
+			questionMap.put(new Integer(0), questions);
+			return questionMap;
+		}
+			
+		
+		con = CommonDAO.getConnection();
+		ps = con.prepareStatement(NotificationSQL.READ_ALL_QUESTIONS_BY_GROUP_AND_DATE);
+				
+		try {
+			for(Integer i:groupArrayList) {
+				
+				ArrayList<String> questions = new ArrayList<String>();
+				
+				ps.setInt(1, i);
+				ps.setString(2, date1);
+				rs = ps.executeQuery();
+				
+				if(!rs.isBeforeFirst()) {
+					questions.add("null");
+					questionMap.put(i, questions);
+				}
+				else {
+					while(rs.next()) {
+						questions.add(rs.getString(1));
+					}
+				}
+				questionMap.put(i, questions);
+			}
+			System.out.println(questionMap);
+			
+			return questionMap;							
+			
+		}finally {
+			if(rs != null) {
+				rs.close();
+			}
+			if(ps != null) {
+				ps.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+		}
+	}
 	
-//	public void test(String s) throws ClassNotFoundException, SQLException {
-//		
-//		try {
-//		con = CommonDAO.getConnection();
-//		ps = con.prepareStatement(NotificationSQL.TEST);
-//		ps.setString(1, s);
-//		int a = ps.executeUpdate();
-//		
-//		while(rs.next()) {
-//			System.out.println(rs.getString(1));
-//		}
-//		}finally {
-//			if(rs != null) {
-//				rs.close();
-//			}
-//			if(ps != null) {
-//				ps.close();
-//			}
-//			if(con != null) {
-//				con.close();
-//			}
-//		}
-//		
-//	}
-//	
-//	public static void main(String[] args) {
-//		
-//		NotificationDAO dao = new NotificationDAO();
-//		try {
-//			dao.test("2017-12-27 10:40:30");
-//		}
-//		catch(Exception e){
-//			System.out.println(e);
-//		}
-//	}
+    public String getPreviousDate(int studentId) throws ClassNotFoundException, SQLException {
+    	String lastLogin = null;
+    	try {
+    		con = CommonDAO.getConnection();
+    		ps = con.prepareStatement(NotificationSQL.FIND_LAST_LOGIN);
+    		ps.setInt(1, studentId);
+    		
+    		rs = ps.executeQuery();
+    		while(rs.next()) {
+    			lastLogin = rs.getString(1);
+    		}
+    		return lastLogin;
+    	}finally {
+    		
+    	}
+    }
+    
+    public void updateLastLogin(int studentId) throws SQLException, ClassNotFoundException {
+    	try {
+    		con = CommonDAO.getConnection();
+    		ps = con.prepareStatement(NotificationSQL.UPDATE_LAST_LOGIN);
+    		ps.setInt(1, studentId);
+    		
+    		int i = ps.executeUpdate();
+    		
+    	}finally {
+    		
+			if(ps != null) {
+				ps.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+    	}
+    }
+    
+
 
 }
