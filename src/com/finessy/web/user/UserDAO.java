@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.finessy.web.commonDAO.CommonDAO;
-import com.finessy.web.SQLqueries.RegistrationSQL;
+import com.finessy.web.registration.RegistrationSQL;
 
 public class UserDAO {
 	
@@ -16,6 +16,18 @@ public class UserDAO {
 	
 	public boolean doExist(String email, String pass) {
 		if(email.equals("hitesh@gmail.com") && pass.equals("hitesh"))
+			return true;
+		return false;
+	}
+
+	public boolean doExist(String email) {
+		if(email.equals("hitesh@gmail.com"))
+			return true;
+		return false;
+	}
+
+	public boolean isActive(String email) {
+		if(email.equals("hitesh@gmail.com"))
 			return true;
 		return false;
 	}

@@ -21,7 +21,7 @@ public class RegistrationServlet extends HttpServlet {
 	
 	boolean isEmailExist;
 	String message;
-	String accountStatus;
+	boolean accountStatus;
 	boolean registerUser;
 	
 	ResourceBundle rb = ResourceBundle.getBundle("config");
@@ -37,15 +37,15 @@ public class RegistrationServlet extends HttpServlet {
 		
 		UserDAO dao = new UserDAO();
 		
-		UserDTO dto = new UserDTO(firstName, lastName, email, password, emailHash);
+		UserDTO dto = new UserDTO(firstName, lastName, email, password);
 		
 		try {
-			isEmailExist = dao.isExist(email);	
+			isEmailExist = dao.doExist(email);	
 			
 			if(isEmailExist) {
 				
 				accountStatus = dao.isActive(email);
-				if(accountStatus == "active") {
+				if(accountStatus) {
 					message = "Account related to this Email Id already exists. Please login through your existing account";
 				}
 				else{

@@ -1,4 +1,4 @@
-package com.finessy.web.ques_ans;
+package com.finessy.web.forum.question;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
