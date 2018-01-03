@@ -2,9 +2,15 @@ package com.finessy.web.registration;
 
 public interface RegistrationSQL {
   
-	String REGISTER_USER = "INSERT INTO student_login(`firstname`, `lastname`, `emailid`, `password`, `lastlogin`) VALUES(?,?,?,?,now());";
+	String REGISTER_USER = "INSERT INTO student_login(`first_name`, `last_name`, `email_id`, `password`, `last_login`, `email_verification_hash`, `status`) VALUES(?,?,?,?,now(),?,?);";
 	
-	String IS_EXIST_EMAIL = "select * from student_login where emailid=?;";
+	String IS_EXIST_EMAIL = "select * from student_login where email_id=?;";
 	
-	String IS_EMAIL_ACTIVE = "select status from student_login where emailid=?;";
+	String IS_EMAIL_ACTIVE = "select status from student_login where email_id=?;";
+	
+	String FIND_STUDENT_ID = "select student_id from student_login where email_id=?;";
+	
+	String VERIFY_EMAIL_HASH = "select email_verification_hash from student_login where student_id=?;";
+	
+	String UPDATE_STATUS = "update student_login set status=? where student_id=?";
 }
