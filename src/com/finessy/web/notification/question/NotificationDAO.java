@@ -1,4 +1,4 @@
-package com.finessy.web.notifications;
+package com.finessy.web.notification.question;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,12 +50,12 @@ public class NotificationDAO {
 		}
 	}
 	
-	public HashMap<Integer,ArrayList<String>> eachGroupQuestion(int studentId, String date1) throws ClassNotFoundException, SQLException{
+	public ArrayList<NotificationDTO> eachGroupQuestion(int studentId, String date1) throws ClassNotFoundException, SQLException{
 		
 		ArrayList<Integer> groupArrayList = new ArrayList<Integer>();
 		groupArrayList = calcGroups(studentId);
 		
-		HashMap<Integer,ArrayList<String>> questionMap = new HashMap<Integer,ArrayList<String>>();
+		ArrayList<NotificationDTO> questionList = new ArrayList<NotificationDTO>();
 		
 //		if(groupArrayList.lastIndexOf(0) == 0) {
 //			System.out.println("no elements");
@@ -65,11 +65,11 @@ public class NotificationDAO {
 //			return questionMap;
 //		}
 			
-		
+		try {
 		con = CommonDAO.getConnection();
 		ps = con.prepareStatement(NotificationSQL.READ_ALL_QUESTIONS_BY_GROUP_AND_DATE);
 				
-		try {
+		
 			for(Integer i:groupArrayList) {
 				
 				ArrayList<String> questions = new ArrayList<String>();
@@ -79,19 +79,21 @@ public class NotificationDAO {
 				rs = ps.executeQuery();
 				
 				if(!rs.isBeforeFirst()) {
-					questions.add("null");
-					questionMap.put(i, questions);
+					questions.add(" ");
+					
+					questionList.add(new NotificationDTO(i, questions));
 				}
 				else {
 					while(rs.next()) {
 						questions.add(rs.getString(1));
 					}
+					questionList.add(new NotificationDTO( i, questions));
 				}
-				questionMap.put(i, questions);
+				
 			}
-			System.out.println(questionMap);
+//			System.out.println(questionList);
 			
-			return questionMap;							
+			return questionList;							
 			
 		}finally {
 			if(rs != null) {

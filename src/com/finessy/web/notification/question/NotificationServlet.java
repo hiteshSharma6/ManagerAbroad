@@ -1,9 +1,8 @@
-package com.finessy.web.notifications;
+package com.finessy.web.notification.question;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,26 +20,24 @@ public class NotificationServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
+				
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String previousDate = null;
-		HashMap<Integer,ArrayList<String>> eachGroupQuestionMap = new HashMap<Integer,ArrayList<String>>();
+		ArrayList<NotificationDTO> eachGroupQuestionList = new ArrayList<NotificationDTO>();
 		int studentId = Integer.parseInt(request.getParameter("studentId"));
 		NotificationDAO dao = new NotificationDAO();
 		try {
 			 previousDate = dao.getPreviousDate(studentId);
-			 eachGroupQuestionMap = dao.eachGroupQuestion(studentId, previousDate);
+			 eachGroupQuestionList = dao.eachGroupQuestion(studentId, previousDate);
 			 
 			 ObjectMapper mapper = new ObjectMapper();
 			 String json;
-			 json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(eachGroupQuestionMap);
+			 json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(eachGroupQuestionList);
 			 
 			dao.updateLastLogin(studentId);
 				response.setContentType("application/json");
