@@ -57,13 +57,13 @@ public class NotificationDAO {
 		
 		HashMap<Integer,ArrayList<String>> questionMap = new HashMap<Integer,ArrayList<String>>();
 		
-		if(groupArrayList.lastIndexOf(0) == 0) {
-			System.out.println("no elements");
-			ArrayList<String> questions = new ArrayList<String>();
-			questions.add("null");
-			questionMap.put(new Integer(0), questions);
-			return questionMap;
-		}
+//		if(groupArrayList.lastIndexOf(0) == 0) {
+//			System.out.println("no elements");
+//			ArrayList<String> questions = new ArrayList<String>();
+//			questions.add("null");
+//			questionMap.put(new Integer(0), questions);
+//			return questionMap;
+//		}
 			
 		
 		con = CommonDAO.getConnection();
