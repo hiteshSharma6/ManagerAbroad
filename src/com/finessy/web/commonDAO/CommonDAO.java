@@ -2,6 +2,8 @@ package com.finessy.web.commonDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -14,5 +16,18 @@ public interface CommonDAO {
 		System.out.println(con.getCatalog());
 		return con;
 	}
-	
+
+	public static void closeConnection(ResultSet rs, PreparedStatement ps, Connection con) throws SQLException {
+		if(rs != null) {
+			rs.close();
+		}
+		if(ps != null) {
+			ps.close();
+		}
+		if(con != null) {
+			con.close();
+		}
+		
+	}
+
 }

@@ -13,16 +13,16 @@ import com.finessy.web.registration.RegistrationSQL;
 public class UserDAO {
 	
 	Connection con = null;
-	PreparedStatement psmt = null;
+	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
-	public boolean isExist(String email) throws ClassNotFoundException, SQLException {
+	public boolean doExist(String email) throws ClassNotFoundException, SQLException {
 		try {
 			con = CommonDAO.getConnection();
-			psmt = con.prepareStatement(RegistrationSQL.IS_EXIST_EMAIL);
-			psmt.setString(1, email);
+			ps = con.prepareStatement(RegistrationSQL.IS_EXIST_EMAIL);
+			ps.setString(1, email);
 			
-			rs = psmt.executeQuery();
+			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst() ) {
 				return false;
 			}
@@ -30,10 +30,26 @@ public class UserDAO {
 				return true;
 			}
 		}finally {
-			if(psmt != null)
-				psmt.close();
-			if(con != null)
-				con.close();
+			CommonDAO.closeConnection(rs, ps, con);
+		}
+	}
+	
+	public boolean doExist(String email, String password) throws ClassNotFoundException, SQLException {
+		try {
+			con = CommonDAO.getConnection();
+			ps = con.prepareStatement(UserSQL.DO_USER_EXIST);
+			ps.setString(1, email);
+			ps.setString(2, password);
+			
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst() ) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}finally {
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
 	
@@ -42,17 +58,17 @@ public class UserDAO {
 		try {
 			
 			con = CommonDAO.getConnection();
-			psmt = con.prepareStatement(RegistrationSQL.IS_EMAIL_ACTIVE);
-			psmt.setString(1, email);
+			ps = con.prepareStatement(RegistrationSQL.IS_EMAIL_ACTIVE);
+			ps.setString(1, email);
 			
-			rs = psmt.executeQuery();
+			rs = ps.executeQuery();
 			while(rs.next()) {
 				 status = rs.getString(1);
 			}
 			return status;
 			
 		}finally {
-			
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
 	
@@ -61,16 +77,16 @@ public class UserDAO {
 		try {
 			con = CommonDAO.getConnection();
 			con.setAutoCommit(false);
-			psmt = con.prepareStatement(RegistrationSQL.REGISTER_USER);
+			ps = con.prepareStatement(RegistrationSQL.REGISTER_USER);
 			
-			psmt.setString(1, dto.getFirstName());
-			psmt.setString(2, dto.getLastName());
-			psmt.setString(3, dto.getEmailId());
-			psmt.setString(4, dto.getPassword());
-			psmt.setString(5, dto.getEmailHash());
-			psmt.setString(6, dto.getStatus());
+			ps.setString(1, dto.getFirstName());
+			ps.setString(2, dto.getLastName());
+			ps.setString(3, dto.getEmailId());
+			ps.setString(4, dto.getPassword());
+			ps.setString(5, dto.getEmailHash());
+			ps.setString(6, dto.getStatus());
 			
-			if(psmt.executeUpdate()>0) {
+			if(ps.executeUpdate()>0) {
 				con.commit();
 				return true;
 			}
@@ -79,10 +95,7 @@ public class UserDAO {
 				return false;
 			}
 		}finally {
-			if(psmt != null)
-				psmt.close();
-			if(con != null)
-				con.close();
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 		
 		
@@ -93,10 +106,10 @@ public class UserDAO {
 		
 		try {
 			con = CommonDAO.getConnection();
-			psmt = con.prepareStatement(RegistrationSQL.FIND_STUDENT_ID);
-			psmt.setString(1, email);
+			ps = con.prepareStatement(RegistrationSQL.FIND_STUDENT_ID);
+			ps.setString(1, email);
 			
-			rs = psmt.executeQuery();
+			rs = ps.executeQuery();
 			
 			
 			while(rs.next()) {
@@ -105,10 +118,7 @@ public class UserDAO {
 			return studentId;
 			
 		}finally {
-			if(psmt != null)
-				psmt.close();
-			if(con != null)
-				con.close();
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
 	
@@ -116,10 +126,10 @@ public class UserDAO {
 		
 		try {
 		con = CommonDAO.getConnection();
-		psmt = con.prepareStatement(RegistrationSQL.VERIFY_EMAIL_HASH);
-		psmt.setInt(1,studentId);
+		ps = con.prepareStatement(RegistrationSQL.VERIFY_EMAIL_HASH);
+		ps.setInt(1,studentId);
 		
-		rs = psmt.executeQuery();
+		rs = ps.executeQuery();
 		
 		while(rs.next()) {
 			if(emailHash.equals(rs.getString(1))) {
@@ -129,30 +139,24 @@ public class UserDAO {
 		}
 		return false;
 		}finally {
-			if(psmt != null)
-				psmt.close();
-			if(con != null)
-				con.close();
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
 	
-public void updateStatus(int studentId) throws ClassNotFoundException, SQLException {
+	public void updateStatus(int studentId) throws ClassNotFoundException, SQLException {
 		
 		try {
 		con = CommonDAO.getConnection();
-		psmt = con.prepareStatement(RegistrationSQL.UPDATE_STATUS);
-		psmt.setString(1,"active");
-		psmt.setInt(2, studentId);
+		ps = con.prepareStatement(RegistrationSQL.UPDATE_STATUS);
+		ps.setString(1,"active");
+		ps.setInt(2, studentId);
 		
-		rs = psmt.executeQuery();
+		rs = ps.executeQuery();
 		
 		
 		}finally {
-			if(psmt != null)
-				psmt.close();
-			if(con != null)
-				con.close();
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
-		
+
 }

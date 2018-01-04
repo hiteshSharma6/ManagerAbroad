@@ -38,15 +38,7 @@ public class NotificationDAO {
 			
 		
 		}finally {
-			if(rs != null) {
-				rs.close();
-			}
-			if(ps != null) {
-				ps.close();
-			}
-			if(con != null) {
-				con.close();
-			}
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
 	
@@ -96,15 +88,7 @@ public class NotificationDAO {
 			return questionList;							
 			
 		}finally {
-			if(rs != null) {
-				rs.close();
-			}
-			if(ps != null) {
-				ps.close();
-			}
-			if(con != null) {
-				con.close();
-			}
+			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
 	
@@ -121,7 +105,7 @@ public class NotificationDAO {
     		}
     		return lastLogin;
     	}finally {
-    		
+    		CommonDAO.closeConnection(rs, ps, con);
     	}
     }
     
@@ -134,13 +118,7 @@ public class NotificationDAO {
     		int i = ps.executeUpdate();
     		
     	}finally {
-    		
-			if(ps != null) {
-				ps.close();
-			}
-			if(con != null) {
-				con.close();
-			}
+    		CommonDAO.closeConnection(rs, ps, con);
     	}
     }
     
