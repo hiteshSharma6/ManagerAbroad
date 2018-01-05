@@ -6,9 +6,7 @@ public interface QuesAnsSQL {
 	
 	String FIND_ANSWER_DETAILS = "select * from answer_details where answer_id=?;";
 	
-	String FIND_RELATED_QUESTIONIDs = "select question_id,description from questions_details where tags in (select tags from questions_details where question_id=?);";
-	
-	String FIND_RELATED_QUESTION_DETAILS = "select description from questions_details where question_id=?;";
+	String FIND_RELATED_QUESTION_DETAILS = "select * from question_details where tags in (select tags from question_details where question_id=?);";
 	
 	String FIND_NAME = "select first_name, last_name from student_login where student_id=?;";
 }
