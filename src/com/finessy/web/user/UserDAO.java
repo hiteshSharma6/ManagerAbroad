@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import com.finessy.web.commonDAO.CommonDAO;
 import com.finessy.web.registration.RegistrationSQL;
 
@@ -154,6 +152,40 @@ public class UserDAO {
 		rs = ps.executeQuery();
 		
 		
+		}finally {
+			CommonDAO.closeConnection(rs, ps, con);
+		}
+	}
+	public boolean updatePassword(int studentId, String newPassword) throws ClassNotFoundException, SQLException {
+		try {
+			con = CommonDAO.getConnection();
+			ps = con.prepareStatement(UserSQL.RESET_PASSWORD);
+			ps.setString(1, newPassword);
+			ps.setInt(1, studentId);
+			
+			int i = ps.executeUpdate();
+			if(i>0)
+				return true;
+			return false;
+			
+		}finally {
+			CommonDAO.closeConnection(rs, ps, con);
+		}
+	}
+	public String getOldPassword(int studentId) throws ClassNotFoundException, SQLException {
+		
+		String oldPassword = null;
+		try {
+			con = CommonDAO.getConnection();
+			ps = con.prepareStatement(UserSQL.GET_OLD_PASSWORD);
+			ps.setInt(1, studentId);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				oldPassword = rs.getString(1);
+			}
+			return oldPassword;
+			
 		}finally {
 			CommonDAO.closeConnection(rs, ps, con);
 		}
