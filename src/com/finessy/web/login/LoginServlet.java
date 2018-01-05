@@ -1,9 +1,8 @@
 package com.finessy.web.login;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
-import javax.servlet.Filter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+import com.finessy.web.user.UserDAO;
+import com.finessy.web.user.UserDTO;
 import com.finessy.web.util.AuthenticateUser;
+
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -22,13 +26,27 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String email = request.getParameter("userid");
-		String pass = request.getParameter("password");
+		String email = request.getParameter("email");
+		String pass = BCrypt.hashpw(request.getParameter("password"),BCrypt.gensalt());
+		UserDAO dao = new UserDAO();
+		boolean exist = false;
 		
 		boolean valid = AuthenticateUser.valid(email, pass);
 		if(valid) {
-			boolean exist = AuthenticateUser.exist(email, pass);
+			
+			try {
+				exist = dao.doExist(email, pass);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if(exist) {
+				try {
+					UserDTO dto = dao.userDetails(email, pass);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				HttpSession session = request.getSession(true);
 				session.setAttribute("Email", email);
 				response.sendRedirect("welcome.html");
