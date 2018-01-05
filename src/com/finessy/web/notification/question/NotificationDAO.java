@@ -93,17 +93,19 @@ public class NotificationDAO {
 	}
 	
     public String getPreviousDate(int studentId) throws ClassNotFoundException, SQLException {
-    	String lastLogin = null;
     	try {
     		con = CommonDAO.getConnection();
     		ps = con.prepareStatement(NotificationSQL.FIND_LAST_LOGIN);
     		ps.setInt(1, studentId);
     		
     		rs = ps.executeQuery();
-    		while(rs.next()) {
-    			lastLogin = rs.getString(1);
-    		}
-    		return lastLogin;
+    		
+    		if(!rs.isBeforeFirst()) {
+				return " ";
+			}
+    		
+    		rs.next();
+   			return rs.getString(1);
     	}finally {
     		CommonDAO.closeConnection(rs, ps, con);
     	}
