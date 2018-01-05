@@ -35,10 +35,9 @@ public class RegistrationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String emailHash = BCrypt.hashpw(email, BCrypt.gensalt());
 		
+		
 		UserDAO dao = new UserDAO();
-		
-		UserDTO dto = new UserDTO(firstName, lastName, email, password, emailHash, "status");
-		
+						
 		try {
 			isEmailExist = dao.doExist(email);	
 			
@@ -54,16 +53,19 @@ public class RegistrationServlet extends HttpServlet {
 				}
 			}
 			else{
+				String status = "registered";
+				UserDTO dto = new UserDTO(firstName, lastName, email, password, emailHash, status);
 				
 				registerUser = dao.register(dto);
 				if(!registerUser) {
 					message = "An error occured. Please try Again later.";
 				}
 				else {
+					int studentId = dao.findStudentId(email);
 					
 					message = "An activation link is sent to your email account for verfication of your account.";
 					
-					String link = rb.getString("registrationLink")+"?scope=activation&hash="+emailHash;
+					String link = rb.getString("registrationLink")+"?scope=activation&userid="+studentId+"&hash="+emailHash;
 					StringBuilder bodyText = new StringBuilder();
 					bodyText.append("<div>")
 					        .append("  Dear User<br/><br/>")
@@ -81,9 +83,7 @@ public class RegistrationServlet extends HttpServlet {
 					       
 				}
 			}
-						 
-			 
-			 
+		
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
