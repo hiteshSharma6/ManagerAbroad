@@ -190,5 +190,24 @@ public class UserDAO {
 			CommonDAO.closeConnection(rs, ps, con);
 		}
 	}
+	public UserDTO userDetails(String email, String password) throws ClassNotFoundException, SQLException {
+		
+		UserDTO dto = null;
+		try {
+			con = CommonDAO.getConnection();
+			ps = con.prepareStatement(UserSQL.LOG_IN_USER);
+			ps.setString(1, email);
+			ps.setString(2, password);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				 dto = new UserDTO(rs.getInt(1),rs.getString(2),rs.getString(3));
+			}
+			return dto;
+			
+		}finally {
+			
+		}
+	}
 
 }

@@ -20,16 +20,11 @@ public class UserDTO {
 		this.status = status;
 	}
 			
-	public UserDTO(int studentId, String firstName, String lastName, String emailId, String password, String emailHash,
-			String status) {
+	public UserDTO(int studentId, String firstName, String lastName) {
 		this.studentId = studentId;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.emailId = emailId;
-		this.password = password;
-		this.emailHash = emailHash;
-		this.status = status;
-	}
+		}
 
 	public UserDTO(String emailId, String password) {
 		this.emailId = emailId;
