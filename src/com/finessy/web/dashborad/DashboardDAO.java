@@ -23,16 +23,15 @@ public class DashboardDAO {
 			ps = con.prepareStatement(DashboardSQL.GET_GROUPS_DETAILS);
 			ps.setInt(1, studentId);
 			rs = ps.executeQuery();
-			
+						
 			if (!rs.isBeforeFirst() ) { 
-				groupArrayList.add(new GroupDTO(0, " ", " ", " ", " ", " "));
+				groupArrayList.add(new GroupDTO(0, 0, 0, 0, 0, 0));
 			} 
 			else {
 				while(rs.next()) {
-					groupArrayList.add(new GroupDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+					groupArrayList.add(new GroupDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
 				}
 			}
-			
 			return groupArrayList;
 			
 		}finally {
@@ -49,6 +48,7 @@ public class DashboardDAO {
 			
 			ArrayList<DashQuestionDTO> questions = new ArrayList<DashQuestionDTO>();
 			rs = ps.executeQuery();
+			
 			if(!rs.isBeforeFirst()) {
 				questions.add(new DashQuestionDTO(0, " ", " ", " ", " "));
 			}

@@ -3,45 +3,68 @@ package com.finessy.web.dashborad;
 public class GroupDTO {
 
 	private int groupId;
-	private String universityName;
-	private String regionName;
-	private String nativeCountryName;
-	private String degreeName;
-	private String programName;
+	private int universityId;
+	private int regionId;
+	private int nativeCountryId;
+	private int degreeId;
+	private int programId;
 
-	public GroupDTO(int groupId, String universityName, String regionName, String nativeCountryName, String degreeName,
-			String programName) {
+	public GroupDTO(int groupId, int universityId, int regionId, int nativeCountryId, int degreeId, int programId) {
 		super();
 		this.groupId = groupId;
-		this.universityName = universityName;
-		this.regionName = regionName;
-		this.nativeCountryName = nativeCountryName;
-		this.degreeName = degreeName;
-		this.programName = programName;
+		this.universityId = universityId;
+		this.regionId = regionId;
+		this.nativeCountryId = nativeCountryId;
+		this.degreeId = degreeId;
+		this.programId = programId;
 	}
 
 	public int getGroupId() {
 		return groupId;
 	}
 
-	public String getUniversityName() {
-		return universityName;
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 
-	public String getRegionName() {
-		return regionName;
+	public int getUniversityId() {
+		return universityId;
 	}
 
-	public String getNativeCountryName() {
-		return nativeCountryName;
+	public void setUniversityId(int universityId) {
+		this.universityId = universityId;
 	}
 
-	public String getDegreeName() {
-		return degreeName;
+	public int getRegionId() {
+		return regionId;
 	}
 
-	public String getProgramName() {
-		return programName;
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
+	}
+
+	public int getNativeCountryId() {
+		return nativeCountryId;
+	}
+
+	public void setNativeCountryId(int nativeCountryId) {
+		this.nativeCountryId = nativeCountryId;
+	}
+
+	public int getDegreeId() {
+		return degreeId;
+	}
+
+	public void setDegreeId(int degreeId) {
+		this.degreeId = degreeId;
+	}
+
+	public int getProgramId() {
+		return programId;
+	}
+
+	public void setProgramId(int programId) {
+		this.programId = programId;
 	}
 
 }

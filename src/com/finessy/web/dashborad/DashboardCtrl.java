@@ -16,12 +16,14 @@ public class DashboardCtrl {
 			groupList = dashboardDAO.getGroups(studentId);
 			
 			String beforeDate = dashboardDAO.getLastLoginDate(studentId);
+
 			for(GroupDTO group : groupList) {
 				int groupId = group.getGroupId();
+				
 				questList = dashboardDAO.getQuestions(groupId, beforeDate);
 				dashboardList.add(new DashboardDTO(group, questList));
 			}
-			
+						
 			dashboardDAO.updateLastLoginTime(studentId);
 			
 			return dashboardList;

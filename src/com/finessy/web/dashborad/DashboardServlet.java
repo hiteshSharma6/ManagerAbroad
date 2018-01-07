@@ -15,7 +15,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class DashboardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int studentId = Integer.parseInt(request.getParameter("student_id"));
+		int studentId = Integer.parseInt(request.getParameter("studentId"));
+		
 		ArrayList<DashboardDTO> dashboardList = new ArrayList<>();
 		dashboardList = DashboardCtrl.getNewQuestions(studentId);
 		
