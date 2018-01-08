@@ -1,4 +1,4 @@
-package com.finessy.web.forum.home;
+package com.finessy.web.forum;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.finessy.web.commonDAO.CommonDAO;
-import com.finessy.web.forum.home.ForumSQL;
+import com.finessy.web.connection.JDBCConnection;
+import com.finessy.web.forum.ForumSQL;
 
 public class ForumDAO {
 	
@@ -19,7 +19,7 @@ public class ForumDAO {
 		ArrayList<ForumDTO> questionList = new ArrayList<ForumDTO>();
 		
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(ForumSQL.READ_ALL_QUESTIONS);
 			rs = ps.executeQuery();
 			
@@ -46,7 +46,7 @@ public class ForumDAO {
 		ArrayList<ForumDTO> questionList = new ArrayList<ForumDTO>();
 		
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(ForumSQL.READ_ALL_QUESTIONS_BY_GROUP_AND_DATE);
 			ps.setInt(1, groupId);
 			ps.setString(2, date1);

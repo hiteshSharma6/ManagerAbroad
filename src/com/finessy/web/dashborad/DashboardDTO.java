@@ -3,6 +3,8 @@ package com.finessy.web.dashborad;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.finessy.web.forum.discussion.GroupDTO;
+
 public class DashboardDTO {
 
 	private GroupDTO group;

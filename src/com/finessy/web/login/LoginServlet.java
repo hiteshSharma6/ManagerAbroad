@@ -27,7 +27,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String email = request.getParameter("email");
-		String pass = BCrypt.hashpw(request.getParameter("password"),BCrypt.gensalt());
+		String pass = request.getParameter("password");
+//		String pass = BCrypt.hashpw(request.getParameter("password"),BCrypt.gensalt());
 		UserDAO dao = new UserDAO();
 		boolean exist = false;
 		
@@ -42,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			if(exist) {
 				try {
-					UserDTO dto = dao.userDetails(email, pass);
+					UserDTO dto = dao.getUserDetails(email, pass);
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -58,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 			
 		}
 		else {
-			response.sendRedirect("welcome.html");
+			response.sendRedirect("login.html");
 		}
 		
 	}

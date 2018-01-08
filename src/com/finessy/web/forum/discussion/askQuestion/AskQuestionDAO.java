@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.finessy.web.commonDAO.CommonDAO;
+import com.finessy.web.connection.JDBCConnection;
 import com.mysql.jdbc.Statement;
 
 public class AskQuestionDAO {
@@ -16,7 +16,7 @@ public class AskQuestionDAO {
 
 	public int addGroup(int universityId, int regionId, int nativeCountryId, int degreeId, int programId) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(AskQuestionSQL.CREATE_GROUP, Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, universityId);
 			ps.setInt(2, regionId);
@@ -31,14 +31,14 @@ public class AskQuestionDAO {
 			}
 		}
 		finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 		return 0;
 	}
 
 	public int addQuestion(int groupId, int postBy, String tags, String description) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(AskQuestionSQL.CREATE_QUESTION, Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, groupId);
 			ps.setInt(2, postBy);
@@ -52,14 +52,14 @@ public class AskQuestionDAO {
 			}
 		}
 		finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 		return 0;
 	}
 
 	public boolean doGroupExist(int universityId, int regionId, int nativeCountryId, int degreeId, int programId) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(AskQuestionSQL.DO_GROUP_EXIST);
 			ps.setInt(1, universityId);
 			ps.setInt(2, regionId);
@@ -74,14 +74,14 @@ public class AskQuestionDAO {
 			}
 		}
 		finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 		return false;
 	}
 
 	public String getQuestionPostDate(int questionId) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(AskQuestionSQL.GET_POST_DATE);
 			ps.setInt(1, questionId);
 			
@@ -95,7 +95,7 @@ public class AskQuestionDAO {
 			return rs.getString(1);
 		}
 		finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 

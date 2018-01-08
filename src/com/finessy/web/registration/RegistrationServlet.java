@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +36,6 @@ public class RegistrationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String emailHash = BCrypt.hashpw(email, BCrypt.gensalt());
 		
-		
 		UserDAO dao = new UserDAO();
 						
 		try {
@@ -57,6 +57,12 @@ public class RegistrationServlet extends HttpServlet {
 				UserDTO dto = new UserDTO(firstName, lastName, email, password, emailHash, status);
 				
 				registerUser = dao.register(dto);
+				
+				String cook = emailHash + "-" + password;
+				Cookie cookie = new Cookie("mycolor",cook);
+				cookie.setMaxAge(365*24*60*60);
+				response.addCookie(cookie);
+				
 				if(!registerUser) {
 					message = "An error occured. Please try Again later.";
 				}

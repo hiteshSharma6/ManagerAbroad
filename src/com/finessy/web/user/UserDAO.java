@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.finessy.web.commonDAO.CommonDAO;
+import com.finessy.web.connection.JDBCConnection;
 import com.finessy.web.registration.RegistrationSQL;
 
 public class UserDAO {
@@ -16,7 +16,7 @@ public class UserDAO {
 	
 	public boolean doExist(String email) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(RegistrationSQL.IS_EXIST_EMAIL);
 			ps.setString(1, email);
 			
@@ -28,13 +28,13 @@ public class UserDAO {
 				return true;
 			}
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	
 	public boolean doExist(String email, String password) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(UserSQL.DO_USER_EXIST);
 			ps.setString(1, email);
 			ps.setString(2, password);
@@ -47,7 +47,7 @@ public class UserDAO {
 				return true;
 			}
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class UserDAO {
 		String status = "registered";
 		try {
 			
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(RegistrationSQL.IS_EMAIL_ACTIVE);
 			ps.setString(1, email);
 			
@@ -66,14 +66,14 @@ public class UserDAO {
 			return status;
 			
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	
 	public boolean register(UserDTO dto) throws ClassNotFoundException, SQLException {
 		
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			con.setAutoCommit(false);
 			ps = con.prepareStatement(RegistrationSQL.REGISTER_USER);
 			
@@ -93,7 +93,7 @@ public class UserDAO {
 				return false;
 			}
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 		
 		
@@ -103,7 +103,7 @@ public class UserDAO {
 		int studentId = 0;
 		
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(RegistrationSQL.FIND_STUDENT_ID);
 			ps.setString(1, email);
 			
@@ -116,14 +116,14 @@ public class UserDAO {
 			return studentId;
 			
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	
 	public boolean verifyEmailHash(int studentId, String emailHash) throws ClassNotFoundException, SQLException {
 		
 		try {
-		con = CommonDAO.getConnection();
+		con = JDBCConnection.getConnection();
 		ps = con.prepareStatement(RegistrationSQL.VERIFY_EMAIL_HASH);
 		ps.setInt(1,studentId);
 		
@@ -137,14 +137,14 @@ public class UserDAO {
 		}
 		return false;
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	
 	public void updateStatus(int studentId) throws ClassNotFoundException, SQLException {
 		
 		try {
-		con = CommonDAO.getConnection();
+		con = JDBCConnection.getConnection();
 		ps = con.prepareStatement(RegistrationSQL.UPDATE_STATUS);
 		ps.setString(1,"active");
 		ps.setInt(2, studentId);
@@ -153,12 +153,12 @@ public class UserDAO {
 		
 		
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	public boolean updatePassword(int studentId, String newPassword) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(UserSQL.RESET_PASSWORD);
 			ps.setString(1, newPassword);
 			ps.setInt(1, studentId);
@@ -169,14 +169,14 @@ public class UserDAO {
 			return false;
 			
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	public String getOldPassword(int studentId) throws ClassNotFoundException, SQLException {
 		
 		String oldPassword = null;
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(UserSQL.GET_OLD_PASSWORD);
 			ps.setInt(1, studentId);
 			rs = ps.executeQuery();
@@ -187,14 +187,14 @@ public class UserDAO {
 			return oldPassword;
 			
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
-	public UserDTO userDetails(String email, String password) throws ClassNotFoundException, SQLException {
+	public UserDTO getUserDetails(String email, String password) throws ClassNotFoundException, SQLException {
 		
 		UserDTO dto = null;
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(UserSQL.LOG_IN_USER);
 			ps.setString(1, email);
 			ps.setString(2, password);
@@ -206,7 +206,7 @@ public class UserDAO {
 			return dto;
 			
 		}finally {
-			
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 

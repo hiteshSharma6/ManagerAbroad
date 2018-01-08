@@ -1,4 +1,4 @@
-package com.finessy.web.util;
+package com.finessy.web.filter;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/abc")
+@WebFilter({"/dashboard/*", "/forum/*"})
 public class SessionFilter implements Filter{
 
 	@Override
@@ -35,18 +35,17 @@ public class SessionFilter implements Filter{
 		HttpSession session = ((HttpServletRequest) request).getSession(false);
 		System.out.println("Filter");
 		if(session == null) {
-			String url = ((HttpServletRequest) request).getRequestURI();
-			String start = "finessy/";
-			int url2 = url.indexOf(start) + start.length();
-			System.out.println(url2);
-			System.out.println(url.substring(url2));
-			String cp = ((HttpServletRequest)request).getContextPath();
-			System.out.println(cp);
+//			String url = ((HttpServletRequest) request).getRequestURI();
+//			String start = "finessy/";
+//			int url2 = url.indexOf(start) + start.length();
+//			System.out.println(url2);
+//			System.out.println(url.substring(url2));
+//			String cp = ((HttpServletRequest)request).getContextPath();
+//			System.out.println(cp);
 //		    String encodedUrl = ((HttpServletResponse) response).encodeURL(cp + "/login.html");
 //		    System.out.println(encodedUrl);
 //			request.getRequestDispatcher("login").forward(request, response);
-			((HttpServletResponse)response).sendRedirect("/finessy/login.html");
-			System.out.println("in");
+			((HttpServletResponse)response).sendRedirect("/managerAbroad/login.html");
 			return;
 		}
 		else {

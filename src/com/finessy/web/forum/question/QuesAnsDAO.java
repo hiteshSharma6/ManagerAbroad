@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.finessy.web.commonDAO.CommonDAO;
+import com.finessy.web.connection.JDBCConnection;
 
 public class QuesAnsDAO {
 	Connection connection = null;
@@ -23,7 +23,7 @@ public class QuesAnsDAO {
 		ArrayList<Integer> answerIDArrayList = new ArrayList<Integer>();
 		try {
 			
-			connection = CommonDAO.getConnection();
+			connection = JDBCConnection.getConnection();
 			preparedStatement = connection.prepareStatement(QuesAnsSQL.FIND_ANSWER_ID);
 			preparedStatement.setInt(1, questionId);
 			resultSet = preparedStatement.executeQuery();
@@ -59,8 +59,8 @@ public ArrayList<QuesAnsDTO> findAnswerDetails(int questionID) throws ClassNotFo
 		String name = null;
 		
 		try { 
-			connection = CommonDAO.getConnection();
-			con1 = CommonDAO.getConnection();
+			connection = JDBCConnection.getConnection();
+			con1 = JDBCConnection.getConnection();
 			preparedStatement = connection.prepareStatement(QuesAnsSQL.FIND_ANSWER_DETAILS);
 			ps1 = con1.prepareStatement(QuesAnsSQL.FIND_NAME);
 			

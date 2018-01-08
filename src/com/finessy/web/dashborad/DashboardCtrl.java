@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.finessy.web.forum.discussion.GroupDTO;
+
 public class DashboardCtrl {
 
 	public static ArrayList<DashboardDTO> getNewQuestions(int studentId) {
@@ -16,7 +18,7 @@ public class DashboardCtrl {
 			groupList = dashboardDAO.getGroups(studentId);
 			
 			String beforeDate = dashboardDAO.getLastLoginDate(studentId);
-
+			
 			for(GroupDTO group : groupList) {
 				int groupId = group.getGroupId();
 				

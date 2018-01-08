@@ -1,21 +1,24 @@
 package com.finessy.web.forum.discussion.askQuestion;
 
+import com.finessy.web.forum.discussion.GroupDTO;
+
 public class AskQuestionDTO {
 
 	private GroupDTO group;
 	private int questionId;
-	private int postBy;
-	private String tags;
 	private String description;
+	private int postBy;
 	private String postOn;
+	private String tags;
 
-	public AskQuestionDTO(GroupDTO group, int postBy, String tags, String description, String postOn) {
+	public AskQuestionDTO(GroupDTO group, int questionId, String description, int postBy, String postOn, String tags) {
 		super();
 		this.group = group;
-		this.postBy = postBy;
-		this.tags = tags;
+		this.questionId = questionId;
 		this.description = description;
+		this.postBy = postBy;
 		this.postOn = postOn;
+		this.tags = tags;
 	}
 
 	public GroupDTO getGroup() {
@@ -34,22 +37,6 @@ public class AskQuestionDTO {
 		this.questionId = questionId;
 	}
 
-	public int getPostBy() {
-		return postBy;
-	}
-
-	public void setPostBy(int postBy) {
-		this.postBy = postBy;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -58,12 +45,28 @@ public class AskQuestionDTO {
 		this.description = description;
 	}
 
+	public int getPostBy() {
+		return postBy;
+	}
+
+	public void setPostBy(int postBy) {
+		this.postBy = postBy;
+	}
+
 	public String getPostOn() {
 		return postOn;
 	}
 
 	public void setPostOn(String postOn) {
 		this.postOn = postOn;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 }

@@ -52,7 +52,7 @@ public class ChangePasswordServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		response.getWriter().println(message);
-	
+		
 		response.setHeader("Cache-control", "no-cache, no-store");
 		response.setHeader("Pragma", "no-cache");
 		response.setHeader("Expires", "-1");

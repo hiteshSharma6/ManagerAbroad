@@ -4,11 +4,11 @@ public class DashQuestionDTO {
 
 	private int questionId;
 	private String description;
-	private String postBy;
+	private int postBy;
 	private String postOn;
 	private String tags;
 
-	public DashQuestionDTO(int questionId, String description, String postBy, String postOn, String tags) {
+	public DashQuestionDTO(int questionId, String description, int postBy, String postOn, String tags) {
 		super();
 		this.questionId = questionId;
 		this.description = description;
@@ -33,11 +33,11 @@ public class DashQuestionDTO {
 //		this.description = description;
 //	}
 
-	public String getPostBy() {
+	public int getPostBy() {
 		return postBy;
 	}
 
-//	public void setPostBy(String postBy) {
+//	public void setPostBy(int postBy) {
 //		this.postBy = postBy;
 //	}
 

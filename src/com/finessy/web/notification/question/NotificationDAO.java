@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.finessy.web.commonDAO.CommonDAO;
+import com.finessy.web.connection.JDBCConnection;
 
 public class NotificationDAO {
 	
@@ -20,7 +20,7 @@ public class NotificationDAO {
 		ArrayList<Integer> groupArrayList = new ArrayList<Integer>();
 		try {
 			
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(NotificationSQL.CALC_GROUPS);
 			ps.setInt(1, studentId);
 			rs = ps.executeQuery();
@@ -38,7 +38,7 @@ public class NotificationDAO {
 			
 		
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class NotificationDAO {
 //		}
 			
 		try {
-		con = CommonDAO.getConnection();
+		con = JDBCConnection.getConnection();
 		ps = con.prepareStatement(NotificationSQL.READ_ALL_QUESTIONS_BY_GROUP_AND_DATE);
 				
 		
@@ -88,13 +88,13 @@ public class NotificationDAO {
 			return questionList;							
 			
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 	
     public String getPreviousDate(int studentId) throws ClassNotFoundException, SQLException {
     	try {
-    		con = CommonDAO.getConnection();
+    		con = JDBCConnection.getConnection();
     		ps = con.prepareStatement(NotificationSQL.FIND_LAST_LOGIN);
     		ps.setInt(1, studentId);
     		
@@ -107,20 +107,20 @@ public class NotificationDAO {
     		rs.next();
    			return rs.getString(1);
     	}finally {
-    		CommonDAO.closeConnection(rs, ps, con);
+    		JDBCConnection.closeConnection(rs, ps, con);
     	}
     }
     
     public void updateLastLogin(int studentId) throws SQLException, ClassNotFoundException {
     	try {
-    		con = CommonDAO.getConnection();
+    		con = JDBCConnection.getConnection();
     		ps = con.prepareStatement(NotificationSQL.UPDATE_LAST_LOGIN);
     		ps.setInt(1, studentId);
     		
     		int i = ps.executeUpdate();
     		
     	}finally {
-    		CommonDAO.closeConnection(rs, ps, con);
+    		JDBCConnection.closeConnection(rs, ps, con);
     	}
     }
     

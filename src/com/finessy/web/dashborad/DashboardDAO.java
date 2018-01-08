@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.finessy.web.commonDAO.CommonDAO;
+import com.finessy.web.connection.JDBCConnection;
+import com.finessy.web.forum.discussion.GroupDTO;
 
 public class DashboardDAO {
 
@@ -19,7 +20,7 @@ public class DashboardDAO {
 		ArrayList<GroupDTO> groupArrayList = new ArrayList<GroupDTO>();
 		try {
 			
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(DashboardSQL.GET_GROUPS_DETAILS);
 			ps.setInt(1, studentId);
 			rs = ps.executeQuery();
@@ -35,13 +36,13 @@ public class DashboardDAO {
 			return groupArrayList;
 			
 		}finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 
 	public ArrayList<DashQuestionDTO> getQuestions(int groupId, String beforeDate) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(DashboardSQL.READ_QUESTIONS_BY_GROUP_AND_DATE);
 			ps.setInt(1, groupId);
 			ps.setString(2, beforeDate);
@@ -50,24 +51,24 @@ public class DashboardDAO {
 			rs = ps.executeQuery();
 			
 			if(!rs.isBeforeFirst()) {
-				questions.add(new DashQuestionDTO(0, " ", " ", " ", " "));
+				questions.add(new DashQuestionDTO(0, " ", 0, " ", " "));
 			}
 			else {
 				while(rs.next()) {
-					questions.add(new DashQuestionDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+					questions.add(new DashQuestionDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5)));
 				}
 			}
 			
 			return questions;
 			
 		} finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 
 	public String getLastLoginDate(int studentId) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(DashboardSQL.GET_LAST_LOGIN_DATE);
 			ps.setInt(1, studentId);
 			rs = ps.executeQuery();
@@ -75,20 +76,20 @@ public class DashboardDAO {
 			rs.next();
 			return rs.getString(1);
 		} finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 	}
 
 	public void updateLastLoginTime(int studentId) throws ClassNotFoundException, SQLException {
 		try {
-			con = CommonDAO.getConnection();
+			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(DashboardSQL.UPDATE_LAST_LOGIN_DATE);
 			ps.setInt(1, studentId);
 			
 			ps.executeUpdate();
 		}
 		finally {
-			CommonDAO.closeConnection(rs, ps, con);
+			JDBCConnection.closeConnection(rs, ps, con);
 		}
 		
 	}

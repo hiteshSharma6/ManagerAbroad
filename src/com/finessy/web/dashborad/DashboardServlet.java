@@ -1,6 +1,7 @@
 package com.finessy.web.dashborad;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,20 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-@WebServlet("/dashboard")
+@WebServlet("/dashboard/")
 public class DashboardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int studentId = Integer.parseInt(request.getParameter("studentId"));
-		
-		ArrayList<DashboardDTO> dashboardList = new ArrayList<>();
-		dashboardList = DashboardCtrl.getNewQuestions(studentId);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dashboardList);
-		
-		response.setContentType("application/json");
-		response.getWriter().println(json);;
+		PrintWriter out = response.getWriter();
+		System.out.println("DASHBOARD Work");
+		out.println("Dashboard");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -15,7 +15,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean emailValidator(String email) {
+	private static boolean emailValidator(String email) {
 		Matcher matcher = EMAIL_PATTERN.matcher(email);
 		return matcher.matches();
 	}

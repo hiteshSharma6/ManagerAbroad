@@ -1,4 +1,4 @@
-package com.finessy.web.forum.home;
+package com.finessy.web.forum;
 
 public interface ForumSQL {
 
