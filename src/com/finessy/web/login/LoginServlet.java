@@ -44,13 +44,16 @@ public class LoginServlet extends HttpServlet {
 			if(exist) {
 				try {
 					UserDTO dto = dao.getUserDetails(email, pass);
+					HttpSession session = request.getSession(true);
+					session.setAttribute("studentId", dto.getStudentId());
+					session.setAttribute("firstName", dto.getFirstName());
+					session.setAttribute("lastName", dto.getLastName());					
+					response.sendRedirect("welcome.html");
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				HttpSession session = request.getSession(true);
-				session.setAttribute("Email", email);
-				response.sendRedirect("welcome.html");
+				
 				return;
 			}
 			else {

@@ -16,9 +16,17 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class DashboardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		System.out.println("DASHBOARD Work");
-		out.println("Dashboard");
+		int studentId = Integer.parseInt(request.getParameter("studentId"));
+		
+		ArrayList<DashboardDTO> dashboardList = new ArrayList<>();
+		dashboardList = DashboardCtrl.getNewQuestions(studentId);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dashboardList);
+		
+		response.setContentType("application/json");
+		response.getWriter().println(json);;
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

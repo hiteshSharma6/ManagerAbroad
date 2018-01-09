@@ -58,10 +58,17 @@ public class RegistrationServlet extends HttpServlet {
 				
 				registerUser = dao.register(dto);
 				
-				String cook = emailHash + "-" + password;
-				Cookie cookie = new Cookie("mycolor",cook);
-				cookie.setMaxAge(365*24*60*60);
-				response.addCookie(cookie);
+				String cookEmail = emailHash;
+				String cookPass = password;
+				
+				Cookie cookieEmail = new Cookie("ma_enter_em", cookEmail);
+				Cookie cookiePass = new Cookie("ma_enter_ps", cookPass);
+				
+				cookieEmail.setMaxAge(365*24*60*60);
+				cookiePass.setMaxAge(365*24*60*60);
+				
+				response.addCookie(cookieEmail);
+				response.addCookie(cookiePass);
 				
 				if(!registerUser) {
 					message = "An error occured. Please try Again later.";
