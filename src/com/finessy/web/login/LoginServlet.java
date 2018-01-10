@@ -27,8 +27,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String email = request.getParameter("email");
-		String pass = request.getParameter("password");
-//		String pass = BCrypt.hashpw(request.getParameter("password"),BCrypt.gensalt());
+		String pass = BCrypt.hashpw(request.getParameter("password"),BCrypt.gensalt());
 		UserDAO dao = new UserDAO();
 		boolean exist = false;
 		
