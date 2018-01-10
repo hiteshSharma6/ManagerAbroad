@@ -33,7 +33,7 @@ public class RegistrationServlet extends HttpServlet {
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		String password = BCrypt.hashpw(request.getParameter("password"),BCrypt.gensalt());
 		String emailHash = BCrypt.hashpw(email, BCrypt.gensalt());
 		
 		UserDAO dao = new UserDAO();
