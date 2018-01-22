@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.finessy.web.forum.discussion.GroupDTO;
+import com.finessy.web.forum.GroupDTO;
 
 public class DashboardCtrl {
 

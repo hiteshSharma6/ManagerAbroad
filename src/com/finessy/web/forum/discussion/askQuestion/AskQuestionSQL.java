@@ -5,7 +5,7 @@ public interface AskQuestionSQL {
 	String CREATE_GROUP = ""
 			+ "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;"
 			+ " INSERT INTO groups ("
-			+ " 	university_id, region_id, native_country_id, degree_id, program_id)"
+			+ " 	university_id, region_id, native_country_id, degree_id, program_id"
 			+ " ) VALUES ("
 			+ " 	?, ?, ?, ?, ?"
 			+ " );"
@@ -33,5 +33,10 @@ public interface AskQuestionSQL {
 			+ " SELECT post_on"
 			+ " FROM questions_details"
 			+ " WHERE question_id = ?;";
+
+	String DO_GROUPID_EXIST = ""
+			+ " SELECT group_id"
+			+ " FROM groups"
+			+ " WHERE group_id = ?;";
 
 }

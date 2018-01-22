@@ -7,10 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/forum/")
+import org.codehaus.jackson.map.ObjectMapper;
+
+@WebServlet("/forum")
 public class ForumServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		String json;
+		
+		ForumDTO forumDTO = ForumCtrl.getForumGroups();
+		
+		json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(forumDTO);
+		
+		response.setContentType("application/json");
+		response.getWriter().println(json);
 		
 	}
 

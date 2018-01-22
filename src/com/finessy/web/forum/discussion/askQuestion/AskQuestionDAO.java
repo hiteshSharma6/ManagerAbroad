@@ -72,11 +72,11 @@ public class AskQuestionDAO {
 			if(!rs.isBeforeFirst()) {
 				return false;
 			}
+			return true;
 		}
 		finally {
 			JDBCConnection.closeConnection(rs, ps, con);
 		}
-		return false;
 	}
 
 	public String getQuestionPostDate(int questionId) throws ClassNotFoundException, SQLException {
@@ -93,6 +93,24 @@ public class AskQuestionDAO {
 			
 			rs.next();
 			return rs.getString(1);
+		}
+		finally {
+			JDBCConnection.closeConnection(rs, ps, con);
+		}
+	}
+
+	public boolean doGroupExist(int groupId) throws ClassNotFoundException, SQLException {
+		try {
+			con = JDBCConnection.getConnection();
+			ps = con.prepareStatement(AskQuestionSQL.DO_GROUPID_EXIST);
+			ps.setInt(1, groupId);
+			
+			rs = ps.executeQuery();
+			
+			if(!rs.isBeforeFirst()) {
+				return false;
+			}
+			return true;
 		}
 		finally {
 			JDBCConnection.closeConnection(rs, ps, con);

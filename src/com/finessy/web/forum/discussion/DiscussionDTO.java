@@ -1,16 +1,16 @@
-package com.finessy.web.dashborad;
+package com.finessy.web.forum.discussion;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.finessy.web.forum.GroupDTO;
 
-public class DashboardDTO {
+public class DiscussionDTO {
 
 	private GroupDTO group;
-	List<DashQuestionDTO> questions;
+	List<QuestionDTO> questions;
 
-	public DashboardDTO(GroupDTO group, ArrayList<DashQuestionDTO> questions) {
+	public DiscussionDTO(GroupDTO group, ArrayList<QuestionDTO> questions) {
 		super();
 		this.group = group;
 		this.questions = questions;
@@ -24,11 +24,11 @@ public class DashboardDTO {
 		this.group = group;
 	}
 
-	public List<DashQuestionDTO> getQuestions() {
+	public List<QuestionDTO> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<DashQuestionDTO> questions) {
+	public void setQuestions(List<QuestionDTO> questions) {
 		this.questions = questions;
 	}
 

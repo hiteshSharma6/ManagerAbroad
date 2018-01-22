@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.finessy.web.connection.JDBCConnection;
-import com.finessy.web.forum.discussion.GroupDTO;
+import com.finessy.web.forum.GroupDTO;
 
 public class DashboardDAO {
 

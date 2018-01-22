@@ -1,6 +1,6 @@
 package com.finessy.web.forum.discussion.askQuestion;
 
-import com.finessy.web.forum.discussion.GroupDTO;
+import com.finessy.web.forum.GroupDTO;
 
 public class AskQuestionDTO {
 

@@ -1,76 +1,66 @@
 package com.finessy.web.forum;
 
+import java.util.Map;
+
 public class ForumDTO {
-
-	private int questionId;
-	private int groupId;
-	private int postBy;
-	private String tags;
-	private String description;
-	private String postOn;
 	
-	public ForumDTO(int questionId, int groupId, int postBy, String tags, String description, String postOn) {
-		this.questionId = questionId;
-		this.groupId = groupId;
-		this.postBy = postBy;
-		this.tags = tags;
-		this.description = description;
-		this.postOn = postOn;
+	private Map<Integer, String> university;
+	private Map<Integer, String> region;
+	private Map<Integer, String> nativeCountry;
+	private Map<Integer, String> degree;
+	private Map<Integer, String> program;
+
+	public ForumDTO(Map<Integer, String> university, Map<Integer, String> region, Map<Integer, String> nativeCountry,
+			Map<Integer, String> degree, Map<Integer, String> program) {
+		super();
+		this.university = university;
+		this.region = region;
+		this.nativeCountry = nativeCountry;
+		this.degree = degree;
+		this.program = program;
 	}
 
-	@Override
-	public String toString() {
-		return "ForumDTO [questionId=" + questionId + ", groupId=" + groupId + ", postBy=" + postBy + ", tags=" + tags
-				+ ", description=" + description + ", postOn=" + postOn + "]";
+	public ForumDTO() {
 	}
 
-	public int getQuestionId() {
-		return questionId;
+	public Map<Integer, String> getUniversity() {
+		return university;
 	}
 
-	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
+	public void setUniversity(Map<Integer, String> university) {
+		this.university = university;
 	}
 
-	public int getGroupId() {
-		return groupId;
+	public Map<Integer, String> getRegion() {
+		return region;
 	}
 
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
+	public void setRegion(Map<Integer, String> region) {
+		this.region = region;
 	}
 
-	public int getPostBy() {
-		return postBy;
+	public Map<Integer, String> getNativeCountry() {
+		return nativeCountry;
 	}
 
-	public void setPostBy(int postBy) {
-		this.postBy = postBy;
+	public void setNativeCountry(Map<Integer, String> nativeCountry) {
+		this.nativeCountry = nativeCountry;
 	}
 
-	public String getTags() {
-		return tags;
+	public Map<Integer, String> getDegree() {
+		return degree;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setDegree(Map<Integer, String> degree) {
+		this.degree = degree;
 	}
 
-	public String getDescription() {
-		return description;
+	public Map<Integer, String> getProgram() {
+		return program;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setProgram(Map<Integer, String> program) {
+		this.program = program;
 	}
 
-	public String getPostOn() {
-		return postOn;
-	}
-
-	public void setPostOn(String postOn) {
-		this.postOn = postOn;
-	}
-	
-		
 }

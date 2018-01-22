@@ -2,7 +2,7 @@ package com.finessy.web.forum.discussion.askQuestion;
 
 import java.sql.SQLException;
 
-import com.finessy.web.forum.discussion.GroupDTO;
+import com.finessy.web.forum.GroupDTO;
 
 public class AskQuestionCtrl {
 	static AskQuestionDAO askQuestionDAO = new AskQuestionDAO();
@@ -13,7 +13,7 @@ public class AskQuestionCtrl {
 			
 //			It is supposed that groupId is maintained on client side
 			boolean groupExist = doGroupExist(groupId);
-//			If groupId is not maintained on client side
+//			If groupId is not maintained on client side, use this - 
 //			boolean groupExist = doGroupExist(askQuestionDTO.getGroup());
 			if(!groupExist) {
 				groupId = addGroup(askQuestionDTO.getGroup());
@@ -50,10 +50,10 @@ public class AskQuestionCtrl {
 		return askQuestionDAO.addGroup(universityId, regionId, nativeCountryId, degreeId, programId);
 	}
 
-	private static boolean doGroupExist(int groupId) {
+	private static boolean doGroupExist(int groupId) throws ClassNotFoundException, SQLException {
 		if(groupId == 0)
 			return false;
-		return true;
+		return askQuestionDAO.doGroupExist(groupId);
 	}
 
 	private static boolean doGroupExist(GroupDTO group) throws ClassNotFoundException, SQLException {
