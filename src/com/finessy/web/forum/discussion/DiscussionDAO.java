@@ -15,7 +15,7 @@ public class DiscussionDAO {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
-	public boolean doGroupExist(int universityId, int regionId, int nativeCountryId, int degreeId, int programId) throws ClassNotFoundException, SQLException {
+	public int getGroupId(int universityId, int regionId, int nativeCountryId, int degreeId, int programId) throws ClassNotFoundException, SQLException {
 		try {
 			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(DiscussionSQL.DO_GROUP_EXIST);
@@ -28,13 +28,14 @@ public class DiscussionDAO {
 			rs = ps.executeQuery();
 			
 			if(!rs.isBeforeFirst()) {
-				return false;
+				return 0;
 			}
+			rs.next();
+			return rs.getInt(1);
 		}
 		finally {
 			JDBCConnection.closeConnection(rs, ps, con);
 		}
-		return false;
 	}
 
 	public boolean doGroupExist(int groupId) throws ClassNotFoundException, SQLException {

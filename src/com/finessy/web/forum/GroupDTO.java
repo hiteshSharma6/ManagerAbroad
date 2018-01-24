@@ -9,6 +9,8 @@ public class GroupDTO {
 	private int degreeId;
 	private int programId;
 
+	public GroupDTO() {}
+
 	public GroupDTO(int groupId, int universityId, int regionId, int nativeCountryId, int degreeId, int programId) {
 		super();
 		this.groupId = groupId;

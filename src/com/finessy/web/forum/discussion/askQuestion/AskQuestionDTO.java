@@ -11,6 +11,8 @@ public class AskQuestionDTO {
 	private String postOn;
 	private String tags;
 
+	public AskQuestionDTO() {}
+
 	public AskQuestionDTO(GroupDTO group, int questionId, String description, int postBy, String postOn, String tags) {
 		super();
 		this.group = group;

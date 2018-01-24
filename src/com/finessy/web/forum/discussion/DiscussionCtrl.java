@@ -10,15 +10,14 @@ public class DiscussionCtrl {
 
 	public static DiscussionDTO getDiscussionPage(GroupDTO groupDTO) {
 		try {
-			int groupId = groupDTO.getGroupId();
+//			int groupId = groupDTO.getGroupId();
+			int groupId = getGroupId(groupDTO);
+			System.out.println(groupId);
 			
-//			It is supposed that groupId is maintained on client side
-			boolean groupExist = doGroupExist(groupId);
-//			If groupId is not maintained on client side
-//			boolean groupExist = doGroupExist(askQuestionDTO.getGroup());
-			if(!groupExist) {
+			if(groupId == 0) {
 				return new DiscussionDTO(groupDTO, new ArrayList<QuestionDTO>());
 			}
+			groupDTO.setGroupId(groupId);
 			
 			DiscussionDTO discussionDTO = getThisGroupQuestions(groupDTO);
 			
@@ -31,7 +30,7 @@ public class DiscussionCtrl {
 	}
 
 	private static DiscussionDTO getThisGroupQuestions(GroupDTO groupDTO) throws ClassNotFoundException, SQLException {
-		ArrayList<QuestionDTO> questions =discussionDAO.getQuestionsFromGroup(groupDTO.getGroupId()); 
+		ArrayList<QuestionDTO> questions = discussionDAO.getQuestionsFromGroup(groupDTO.getGroupId()); 
 		return new DiscussionDTO(groupDTO, questions);
 	}
 
@@ -41,14 +40,16 @@ public class DiscussionCtrl {
 		return discussionDAO.doGroupExist(groupId);
 	}
 
-	private static boolean doGroupExist(GroupDTO group) throws ClassNotFoundException, SQLException {
+	private static int getGroupId(GroupDTO group) throws ClassNotFoundException, SQLException {
 		int universityId = group.getUniversityId();
 		int regionId = group.getRegionId();
 		int nativeCountryId = group.getNativeCountryId();
 		int degreeId = group.getDegreeId();
 		int programId = group.getProgramId();
+		System.out.println(universityId+degreeId+programId);
 		
-		return discussionDAO.doGroupExist(universityId, regionId, nativeCountryId, degreeId, programId);
+		return discussionDAO.getGroupId(universityId, regionId, nativeCountryId, degreeId, programId);
+		
 	}
 
 }
