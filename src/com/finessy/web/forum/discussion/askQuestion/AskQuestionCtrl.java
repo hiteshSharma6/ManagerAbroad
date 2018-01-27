@@ -2,7 +2,7 @@ package com.finessy.web.forum.discussion.askQuestion;
 
 import java.sql.SQLException;
 
-import com.finessy.web.forum.GroupDTO;
+import com.finessy.web.forum.group.GroupDTO;
 
 public class AskQuestionCtrl {
 	static AskQuestionDAO askQuestionDAO = new AskQuestionDAO();

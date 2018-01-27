@@ -1,4 +1,4 @@
-package com.finessy.web.forum;
+package com.finessy.web.forum.group;
 
 public class GroupDTO {
 

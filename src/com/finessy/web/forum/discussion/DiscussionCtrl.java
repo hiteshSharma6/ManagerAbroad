@@ -3,7 +3,7 @@ package com.finessy.web.forum.discussion;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.finessy.web.forum.GroupDTO;
+import com.finessy.web.forum.group.GroupDTO;
 
 public class DiscussionCtrl {
 	static DiscussionDAO discussionDAO = new DiscussionDAO();

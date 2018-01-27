@@ -12,6 +12,11 @@ import com.finessy.web.connection.JDBCConnection;
 import com.finessy.web.forum.ForumSQL;
 import com.finessy.web.forum.discussion.DiscussionSQL;
 import com.finessy.web.forum.discussion.QuestionDTO;
+import com.finessy.web.forum.group.degree.DegreeDTO;
+import com.finessy.web.forum.group.nativeCountry.NativeCountryDTO;
+import com.finessy.web.forum.group.program.ProgramDTO;
+import com.finessy.web.forum.group.region.RegionDTO;
+import com.finessy.web.forum.group.university.UniversityDTO;
 
 public class ForumDAO {
 	
@@ -19,20 +24,20 @@ public class ForumDAO {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
-	public Map<Integer, String> getUniversityEntry() throws ClassNotFoundException, SQLException {
+	public ArrayList<UniversityDTO> getUniversityEntry() throws ClassNotFoundException, SQLException {
 		try {
 			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(ForumSQL.GET_UNIVERSITY_DETAILS);
 			
-			Map<Integer, String> university = new HashMap<Integer, String>();
+			ArrayList<UniversityDTO> university = new ArrayList<UniversityDTO>();
 			rs = ps.executeQuery();
 			
 			if(!rs.isBeforeFirst()) {
-				university.put(0, " ");
+				university.add(new UniversityDTO(0, " "));
 			}
 			else {
 				while(rs.next()) {
-					university.put(rs.getInt(1), rs.getString(2));
+					university.add(new UniversityDTO(rs.getInt(1), rs.getString(2)));
 				}
 			}
 			
@@ -43,20 +48,20 @@ public class ForumDAO {
 		}		
 	}
 	
-	public Map<Integer, String> getRegionEntry() throws ClassNotFoundException, SQLException {
+	public ArrayList<RegionDTO> getRegionEntry() throws ClassNotFoundException, SQLException {
 		try {
 			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(ForumSQL.GET_REGION_DETAILS);
 			
-			Map<Integer, String> region = new HashMap<Integer, String>();
+			ArrayList<RegionDTO> region = new ArrayList<RegionDTO>();
 			rs = ps.executeQuery();
 			
 			if(!rs.isBeforeFirst()) {
-				region.put(0, " ");
+				region.add(new RegionDTO(0, " "));
 			}
 			else {
 				while(rs.next()) {
-					region.put(rs.getInt(1), rs.getString(2));
+					region.add(new RegionDTO(rs.getInt(1), rs.getString(2)));
 				}
 			}
 			
@@ -67,20 +72,20 @@ public class ForumDAO {
 		}		
 	}
 	
-	public Map<Integer, String> getNativeCountryEntry() throws ClassNotFoundException, SQLException {
+	public ArrayList<NativeCountryDTO> getNativeCountryEntry() throws ClassNotFoundException, SQLException {
 		try {
 			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(ForumSQL.GET_NATIVE_COUNTRY_DETAILS);
 			
-			Map<Integer, String> nativeCountry = new HashMap<Integer, String>();
+			ArrayList<NativeCountryDTO> nativeCountry = new ArrayList<NativeCountryDTO>();
 			rs = ps.executeQuery();
 			
 			if(!rs.isBeforeFirst()) {
-				nativeCountry.put(0, " ");
+				nativeCountry.add(new NativeCountryDTO(0, " "));
 			}
 			else {
 				while(rs.next()) {
-					nativeCountry.put(rs.getInt(1), rs.getString(2));
+					nativeCountry.add(new NativeCountryDTO(rs.getInt(1), rs.getString(2)));
 				}
 			}
 			
@@ -91,20 +96,20 @@ public class ForumDAO {
 		}		
 	}
 	
-	public Map<Integer, String> getDegreeEntry() throws ClassNotFoundException, SQLException {
+	public ArrayList<DegreeDTO> getDegreeEntry() throws ClassNotFoundException, SQLException {
 		try {
 			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(ForumSQL.GET_DEGREE_DETAILS);
 			
-			Map<Integer, String> degree = new HashMap<Integer, String>();
+			ArrayList<DegreeDTO> degree = new ArrayList<DegreeDTO>();
 			rs = ps.executeQuery();
 			
 			if(!rs.isBeforeFirst()) {
-				degree.put(0, " ");
+				degree.add(new DegreeDTO(0, " "));
 			}
 			else {
 				while(rs.next()) {
-					degree.put(rs.getInt(1), rs.getString(2));
+					degree.add(new DegreeDTO(rs.getInt(1), rs.getString(2)));
 				}
 			}
 			
@@ -115,20 +120,20 @@ public class ForumDAO {
 		}		
 	}
 
-	public Map<Integer, String> getProgramEntry() throws ClassNotFoundException, SQLException {
+	public ArrayList<ProgramDTO> getProgramEntry() throws ClassNotFoundException, SQLException {
 		try {
 			con = JDBCConnection.getConnection();
 			ps = con.prepareStatement(ForumSQL.GET_PROGRAM_DETAILS);
 			
-			Map<Integer, String> program = new HashMap<Integer, String>();
+			ArrayList<ProgramDTO> program = new ArrayList<ProgramDTO>();
 			rs = ps.executeQuery();
 			
 			if(!rs.isBeforeFirst()) {
-				program.put(0, " ");
+				program.add(new ProgramDTO(0, " "));
 			}
 			else {
 				while(rs.next()) {
-					program.put(rs.getInt(1), rs.getString(2));
+					program.add(new ProgramDTO(rs.getInt(1), rs.getString(2)));
 				}
 			}
 			

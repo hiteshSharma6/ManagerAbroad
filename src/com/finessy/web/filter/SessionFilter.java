@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.finessy.web.user.UserDAO;
 
-@WebFilter({"/dashboard/*", "/forum/*"})
+//@WebFilter({"/dashboard/*", "/forum/*"})
 public class SessionFilter implements Filter{
 
 	@Override

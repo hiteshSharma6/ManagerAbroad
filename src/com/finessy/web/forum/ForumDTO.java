@@ -1,17 +1,23 @@
 package com.finessy.web.forum;
 
-import java.util.Map;
+import java.util.ArrayList;
+
+import com.finessy.web.forum.group.degree.DegreeDTO;
+import com.finessy.web.forum.group.nativeCountry.NativeCountryDTO;
+import com.finessy.web.forum.group.program.ProgramDTO;
+import com.finessy.web.forum.group.region.RegionDTO;
+import com.finessy.web.forum.group.university.UniversityDTO;
 
 public class ForumDTO {
 	
-	private Map<Integer, String> university;
-	private Map<Integer, String> region;
-	private Map<Integer, String> nativeCountry;
-	private Map<Integer, String> degree;
-	private Map<Integer, String> program;
+	private ArrayList<UniversityDTO> university;
+	private ArrayList<RegionDTO> region;
+	private ArrayList<NativeCountryDTO> nativeCountry;
+	private ArrayList<DegreeDTO> degree;
+	private ArrayList<ProgramDTO> program;
 
-	public ForumDTO(Map<Integer, String> university, Map<Integer, String> region, Map<Integer, String> nativeCountry,
-			Map<Integer, String> degree, Map<Integer, String> program) {
+	public ForumDTO(ArrayList<UniversityDTO> university, ArrayList<RegionDTO> region,
+			ArrayList<NativeCountryDTO> nativeCountry, ArrayList<DegreeDTO> degree, ArrayList<ProgramDTO> program) {
 		super();
 		this.university = university;
 		this.region = region;
@@ -20,46 +26,43 @@ public class ForumDTO {
 		this.program = program;
 	}
 
-	public ForumDTO() {
-	}
-
-	public Map<Integer, String> getUniversity() {
+	public ArrayList<UniversityDTO> getUniversity() {
 		return university;
 	}
 
-	public void setUniversity(Map<Integer, String> university) {
+	public void setUniversity(ArrayList<UniversityDTO> university) {
 		this.university = university;
 	}
 
-	public Map<Integer, String> getRegion() {
+	public ArrayList<RegionDTO> getRegion() {
 		return region;
 	}
 
-	public void setRegion(Map<Integer, String> region) {
+	public void setRegion(ArrayList<RegionDTO> region) {
 		this.region = region;
 	}
 
-	public Map<Integer, String> getNativeCountry() {
+	public ArrayList<NativeCountryDTO> getNativeCountry() {
 		return nativeCountry;
 	}
 
-	public void setNativeCountry(Map<Integer, String> nativeCountry) {
+	public void setNativeCountry(ArrayList<NativeCountryDTO> nativeCountry) {
 		this.nativeCountry = nativeCountry;
 	}
 
-	public Map<Integer, String> getDegree() {
+	public ArrayList<DegreeDTO> getDegree() {
 		return degree;
 	}
 
-	public void setDegree(Map<Integer, String> degree) {
+	public void setDegree(ArrayList<DegreeDTO> degree) {
 		this.degree = degree;
 	}
 
-	public Map<Integer, String> getProgram() {
+	public ArrayList<ProgramDTO> getProgram() {
 		return program;
 	}
 
-	public void setProgram(Map<Integer, String> program) {
+	public void setProgram(ArrayList<ProgramDTO> program) {
 		this.program = program;
 	}
 
